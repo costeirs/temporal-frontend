@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}"
+      xmlns:th="https://www.thymeleaf.org"
+      lang="en"
+>
+<head>
+  <title>Claims</title>
+</head>
+<body>
+<div layout:fragment="content">
+  <fieldset>
+    <legend>All Claims</legend>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Submitted By</th>
+        <th scope="col">Description</th>
+        <th scope="col">Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="claim: ${claims}">
+        <th th:text="${claim.id}" scope="row"/>
+        <td th:text="${claim.name}"/>
+        <td th:text="${claim.description}"/>
+        <td th:text="${claim.status}"/>
+      </tr>
+      </tbody>
+    </table>
+  </fieldset>
+  <hr>
+  <fieldset>
+    <legend>New Claim</legend>
+    <form action="#" th:action="@{/submit}" th:object="${claimInput}" method="post">
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" id="name" class="form-control" th:field="*{name}">
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea type="text" id="description" class="form-control" th:field="*{name}" rows="3"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </fieldset>
+</div>
+</body>
+</html>
