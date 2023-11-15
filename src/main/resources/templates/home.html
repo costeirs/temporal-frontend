@@ -28,10 +28,16 @@
         <td th:text="${claim.description}"/>
         <td th:text="${claim.workflowStatusText}"/>
         <td>
-          <span th:text="${claim.status}" />
-          <form th:if="${claim.pendingHumanReview}" th:action="@{'/review/' + ${claim.id}}" method="POST">
-            <button type="submit" name="status" value="APPROVED" class="btn btn-primary">Approve</button>
-            <button type="submit" name="status" value="DENIED" class="btn btn-danger">Deny</button>
+          <span th:text="${claim.status}"/>
+          <form th:if="${claim.pendingHumanReview}" th:action="@{'/review/' + ${claim.id}}"
+                method="POST" class="shadow p-2 bg-body-tertiary rounded">
+            <p th:text="${claim.estimate}"/>
+            <div>
+              <button type="submit" name="status" value="APPROVED" class="btn btn-success">Approve
+              </button>
+              <button type="submit" name="status" value="DENIED" class="btn btn-danger">Deny
+              </button>
+            </div>
           </form>
         </td>
       </tr>
@@ -44,11 +50,12 @@
     <form action="#" th:action="@{/submit}" th:object="${claimInput}" method="post">
       <div class="mb-3">
         <label for="name" class="form-label">Name</label>
-        <input type="text" id="name" class="form-control" th:field="*{name}">
+        <input type="text" id="name" class="form-control" th:field="*{name}" required="required">
       </div>
       <div class="mb-3">
         <label for="description" class="form-label">Description</label>
-        <textarea type="text" id="description" class="form-control" th:field="*{description}" rows="3"></textarea>
+        <textarea id="description" class="form-control" th:field="*{description}" rows="3"
+                  required="required"></textarea>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>

@@ -9,6 +9,7 @@ public class Claim {
     private final String id;
     private final String name;
     private final String description;
+    private final String estimate;
     private final String status;
     private final WorkflowExecutionStatus workflowExecutionStatus;
 
