@@ -11,13 +11,14 @@
 <div layout:fragment="content">
   <fieldset>
     <legend>All Claims</legend>
-    <table class="table">
+    <table class="table table-striped table-hover">
       <thead>
       <tr>
         <th scope="col">ID</th>
         <th scope="col">Submitted By</th>
         <th scope="col">Description</th>
-        <th scope="col">Status</th>
+        <th scope="col">Workflow Status</th>
+        <th scope="col">Claim Status</th>
       </tr>
       </thead>
       <tbody>
@@ -25,7 +26,14 @@
         <th th:text="${claim.id}" scope="row"/>
         <td th:text="${claim.name}"/>
         <td th:text="${claim.description}"/>
-        <td th:text="${claim.status}"/>
+        <td th:text="${claim.workflowStatusText}"/>
+        <td>
+          <span th:text="${claim.status}" />
+          <form th:if="${claim.pendingHumanReview}" th:action="@{'/review/' + ${claim.id}}" method="POST">
+            <button type="submit" name="status" value="APPROVED" class="btn btn-primary">Approve</button>
+            <button type="submit" name="status" value="DENIED" class="btn btn-danger">Deny</button>
+          </form>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -40,7 +48,7 @@
       </div>
       <div class="mb-3">
         <label for="description" class="form-label">Description</label>
-        <textarea type="text" id="description" class="form-control" th:field="*{name}" rows="3"></textarea>
+        <textarea type="text" id="description" class="form-control" th:field="*{description}" rows="3"></textarea>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
